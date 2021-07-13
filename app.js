@@ -26,7 +26,7 @@ app.get("/pokemon/:id", (req, res) => {
   }
 });
 
-app.get("/pokemon/search", (req, res) => {
+app.get("/search", (req, res) => {
   const queryParams = req.query;
 
   for (let key in queryParams) {
