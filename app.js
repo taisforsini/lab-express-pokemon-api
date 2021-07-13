@@ -30,14 +30,18 @@ app.get("/pokemon/search", (req, res) => {
   const queryParams = req.query;
 
   for (let key in queryParams) {
-    const foundPokemon = allPokemon.find((pokemon) => {
-      return pokemon[key]
+    const filteredPokemon = allPokemon.filter((currentPokemon) => {
+      if (key === "types") {
+        return currentPokemon.types.includes(queryParams.types);
+      }
+
+      return currentPokemon.name
         .toLowerCase()
-        .includes(queryParams[key].toLowerCase());
+        .includes(queryParams.toLowerCase());
     });
 
-    if (foundPokemon) {
-      return res.json(foundPokemon);
+    if (filteredPokemon.length) {
+      return res.json(filteredPokemon);
     } else {
       return res.json({ msg: "Pokemon not found." });
     }
